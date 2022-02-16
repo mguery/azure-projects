@@ -28,29 +28,68 @@ Exercise: AAD Connect deployment
 - select subscription > create new res group > choose region > admin name and pw > add domain name (ex. az500lab.com) and dns prefix (ex. az500lab-58463) > select VM size > leave default values > review and create > after validation passed, tap create to complete deployment (takes 15+ mins)
 - after complete - go to res group > click your res group, then adVM VM resource > copy DNS name value
 - open remote desktop connection (search icon, type rdp) > paste value and connect
+
 ![Screenshot (8)](https://user-images.githubusercontent.com/10605985/154188932-41e43d5e-a7db-4d28-a5d5-2d220f8a5aac.png)
+
 - create test users in AD DS - from rdp session, open cmd admin and type powershell
 - add commands to download and run script that will create test users and groups 
 - Error - an error occured trying to download [idfix ](https://github.com/Microsoft/idfix). follow [steps here](https://github.com/microsoft/idfix/issues/20#issuecomment-676633032) to fix
+- IdFix toolbar - query > edit object > action - edit > apply and yes. object goes from edit to complete. tap query to verify is corrected (no longer displayed)
+
+Prepared on-prem AD env for integration with AAD. 
 
 Exercise: Deploy AAD Connect PHS
--
+- from rdp session - server manager, local server, click On for IE Enhanaced Sec Config, set both options to Off
+- download aad connect > express settings, phs, next, connect to aad with syncadmin account, connect dirs, add new AD acct, check continue w/o matching upn suffixes, next > select only orgusers, optional features - password writeback > check start sync process when config is complete, install
+- portal.azure.com > aad > users > review synchronized users in directory synced column
+
+Implemented a hybrid identity setup with onprem AD and AAD. 
+
+![image](https://user-images.githubusercontent.com/10605985/154198235-2605fa84-6c8c-4c45-a9b3-86ce763edc62.png)
 
 Exercise: Enable MFA by changing user state
--
+- aad > security > mfa > additional cloud-based mfa settings > select only text msg and notif through mobile app and save >on same settings page, users tab to select user, check box and enable on side
+- user will be able to setup mfa with authenticator app and text to complete registration
 
 Exercise: Implement conditional access
--
+- aad > security > conditional access > policies > new policy > name pol
+- assignments - users and groups, select user/group
+- review/edit other options - cloud apps, conditions (sign-in risks and levels, locations, device platforms) access controls (grant, block access)
+- enable policy - report only, on, off
 
 Exercise: Implement AAD Identity Protection
--
+- aad > security > identity protection > user risk policy 
+- user risk remediation policy > assignments - include tab all users / exclude tab - select users to exclude
+- user risk - low and above
+- controls - access > allow access > require pw change > enforce policy - on 
+- under Report section view Risky users, risky sign-ins, and dectections
+
+Enabled AAD IP and configured policies (user risk and sign-in risk) to respond to events.
 
 Exercise: AAD Privileged Identity Management
--
+- search PIM > AAD roles > Roles > Add assignments
+- select role - billing admin > select member, select > next
+- assignment type - eligible > assign / view assignments 
+- edit billing admin > role settings > edit 
+- activation tab - 3 hours, select justification and approval to activate> next assignment
+- assignemtn tab - uncheck allow perm active assignment > next notification
+- notification tab - review, update
+- aad roles > eligible assignments > billing admin > activate > reason - add reason in textbox
+- PIM under tasks - approve requests / click approve for users > add reason for activation and confirm
+
+Implemented AAD PIM and verified role activation workflow with approval 
 
 Exercise: Create access review and review PIM auditing features
--
+- PIM > aad roles > access reviews
+- review access > click role > select user > type reason, approve
+- access reviews and select global admin review, progress bar to view # approved change
+- view alerts to see preconfigured alerts ans risk levels
 
+![screenshot-portal azure com-2022 02 16-02_01_35](https://user-images.githubusercontent.com/10605985/154213106-69dd9b1f-6d43-4856-8804-f4b3a5d750f2.png)
+
+Configured and validated a PIM access review. This will help you mitigate the risk of sale acess in your env.
+
+---
 
 ## Section 2: Implement Azure Platform Protection
 
@@ -99,6 +138,7 @@ Exercise: Provision resources for Ch 8
 Exercise: Secure ACR
 -
 
+---
 
 ## Section 3: Secure Storage, Applications, and Data
 
