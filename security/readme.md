@@ -114,23 +114,41 @@ Exercise: Configure a WAF on Azure Applicaion Gateway
 - backend targets tab - rule name - webapp-http-rule, backend pool, backend target - linux-web-server, http settings - add new / webapp-http-setting, default values, add and add 
 - next: tags > next: review and create > create
 - go to resource grp > click app-gw created > copy frontend public ip add
-- paste ip in new broswer tab (This means that traffic is passing
+- paste ip in new broswer tab, reach apache server page (This means that traffic is passing
 through the application gateway to the backend web server hosted on the Linux VM)
 
 ![screenshot-20 185 238 155-2022 03 08-20_04_47](https://user-images.githubusercontent.com/10605985/157352399-9dfaae3a-985a-4f65-8ece-418b663961d1.png)
 
 Exercise: Configure NSGs and ASGs
--
+- search application sec groups > create sg 
+- choose subs and resource group > create and create
+- search azseclinvm > under settings - networking > app sec group > config app sg
+- select sg and save
+- search network sg > create nsg > create and create 
+- go to resource > pick the nsg created > inbound sec rules > add rule to allow web traffic (dest asg, pick sg, port ranges 80, 443, protocol tcp, priority 1000) and another rule to deny ssh traffic (same values, but port 22, action deny, priority 900)
+- inbound sec rules blade > network interfaces > associate tab > pick azseclinvm to associate the nsg with the ntwk interface of the linux vm 
+- in rdp session - putty 10.0.1.4 - should be error for no ssh allowed, in browser - 10.0.1.4 should be default ubuntu page
+- nsg > private-vm-sg > netwk int > diassociate 
 
 Exercise: Configure firewall and service endpoints on storage account
--
+- search storage accounts > click on storage acct > file shares and click on file
+- connect > linux tab to gt the mount command info and paste in clipboard
+- from strg acct > networking > allow access from selected ntwks, add exiting vn > enable > add then save (this will enable a svc endpt for private-subnet)
+- in rdp putty 10.0.1.4 to connect to linux vm over ssh > name and pw > sudo df -Th command to verify no file share
+- copy and right click to paste mount command > azsecvmstrg... means file share mounted 
+- from storage account > file shares > click file (error means no public access to file share) 
+
+![screenshot-portal azure com-2022 03 08-20_58_46](https://user-images.githubusercontent.com/10605985/157357599-ccd67fee-f3b1-46eb-a1f8-c5a4833df398.png)
 
 Exercise: Configure Azure Bastion
--
+- go to vn > create subnet > save
+- go to vms > azsecwinvm > connect - bastion > deploy
+- login with username and pw > connects to vm from rdp session to browser (allow popup to continue)
 
 Exercise: Clean up resources
--
+- delete c6-rg
 
+<!--
 Exercise: Provision resources for Ch 8
 -
 
@@ -148,9 +166,10 @@ Exercise: Enable Just-in-time VM access
 
 Exercise: Provision resources for Ch 8
 -
+-->
 
 Exercise: Secure ACR
--
+- 
 
 ---
 
