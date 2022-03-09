@@ -94,16 +94,30 @@ Configured and validated a PIM access review. This will help you mitigate the ri
 ## Section 2: Implement Azure Platform Protection
 
 Exercise: Provision resources for Ch 6+7
--
+- start RDP session
 
 Exercise: Implement Azure DDoS protection Standard
--
+- DDoS protection > create plan > fill info > create
+- virtual networks blade > click vn > DDoS protection blade 
+- Enable > choose ddos plan and save
+(remember to disable, and delete ddos plan in ddos protection plans)
 
-Exercise: Implement Azure Firewall
--
 
 Exercise: Configure a WAF on Azure Applicaion Gateway
--
+- Virtual networks > click vn > subnets 
+- add subnet > name and subnet range > save
+- search app gw > create app gw > fill in info 
+- next: frontends > public and add new public ip (Traffic enters the application gateway via its frontend IP address(es). An application gateway can use a public IP address, private IP address, or one of each type.)
+- next: backends: add backend pool > linux-web-server, add backend w/o targets - No, target type -vm, target - 10.0.1.4 > add (A backend pool is a collection of resources to which your application gateway can send traffic. A backend pool can contain virtual machines, virtual machine scale sets, app services, IP addresses, or fully qualified domain names (FQDN).)
+- next: configuration > add routing rule
+- listener tab - rule name webapp-http-rule, listener name - webapp-http-rule-listener, frontend ip - public, protocol - http, port - 80 , listener type - basic, error page url - no
+- backend targets tab - rule name - webapp-http-rule, backend pool, backend target - linux-web-server, http settings - add new / webapp-http-setting, default values, add and add 
+- next: tags > next: review and create > create
+- go to resource grp > click app-gw created > copy frontend public ip add
+- paste ip in new broswer tab (This means that traffic is passing
+through the application gateway to the backend web server hosted on the Linux VM)
+
+![screenshot-20 185 238 155-2022 03 08-20_04_47](https://user-images.githubusercontent.com/10605985/157352399-9dfaae3a-985a-4f65-8ece-418b663961d1.png)
 
 Exercise: Configure NSGs and ASGs
 -
