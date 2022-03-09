@@ -165,7 +165,7 @@ Exercise: Enable Just-in-time VM access
 -
 
 Exercise: Provision resources for Ch 8
--
+- 
 -->
 
 Exercise: Secure ACR
