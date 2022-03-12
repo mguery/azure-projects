@@ -183,10 +183,20 @@ protected sensitive data stored in vm disk using ade. configured kv res to store
 ### Exercise: Provision storage account with encryption in transit enforced
 - create new resource - storage account
 - under data storage, containers > new ctr > name - public, blob (read access for blob only) > create
-- click into public upload json file > click into file
+- click into public upload json file > click into file > copy url
+- paste url in new tab, then change url to http:// - error http not supported (created storage acct with enforced encryption in transit)
 
 ### Exercise: Configure storage account access controls
-- 
+- go to storage account > settings - config > disable blob public access and save
+- back to containers, click public > change access level > ok
+- click json file and copy url > error "PublicAccessNotPermitted - Public access is not permitted on this storage account." (to gain access need to be authorized using key-based autho or id-based autho)
+- from blob page/json file > generate sas - account key, key 1, rea perms, start before current time, expiry, https only, generate sas token and url (this is ad hoc method)
+- copy and paste blob sas url in new tab - can now access file 
+- back to container - switch to aad user account (error - no perms to list data user account with aad. dont have access to data plane of azure storage by default)
+- access control > add role assignments - storage blob data contrib > assign access to u/g/sp, member - select current logged in account > review and assign
+- container > switch to aad user account - can now access ctr res with aad user acct (error same?)
+- back to storage acct > config > disable storage account key access > blob sas url - error - "KeyBasedAuthenticationNotPermitted - Key based authentication is not permitted on this storage account." 
+
 
 ### Exercise: Provision resources for Ch 11
 -
