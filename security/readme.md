@@ -179,7 +179,6 @@ protected sensitive data stored in vm disk using ade. configured kv res to store
 
 ## Section 3: Secure Storage, Applications, and Data
 
-
 ### Exercise: Provision storage account with encryption in transit enforced
 - create new resource - storage account
 - under data storage, containers > new ctr > name - public, blob (read access for blob only) > create
@@ -197,27 +196,20 @@ protected sensitive data stored in vm disk using ade. configured kv res to store
 - container > switch to aad user account - can now access ctr res with aad user acct (error same?)
 - back to storage acct > config > disable storage account key access > blob sas url - error - "KeyBasedAuthenticationNotPermitted - Key based authentication is not permitted on this storage account." 
 
-
-### Exercise: Provision resources for Ch 11
--
-
-### Exercise: Implement network access control
--
-
-### Exercise: Implement AAD authentication and authorization
--
- 
-### Exercise: Implement Always Encrypted
-- 
-
-### Exercise: Manage Access to Key Vault resources
-- 
-
-### Exercise: Protect Key Vault resources
-- 
-
 ### Exercise: Implement management groups and Azure Policy
-- 
+- go to management groups > start using MG button 
+- create new mg - group ID and display name > subs > add subs > add your subs and save
+- go to policy > authoring - definitions > search allowed locations definition > on allowed locations click assign > 3 dots in scope and choose subs and select
+- add assgmt name, desc, enable policy enforcement, next
+- parameters - choose loc, review and create and create the policy assignment
+- to test, create new vm in another region - error - Policy enforcement
+- delete policy assignment
 
-### Exercise: Implement Azure Sentinel
-- 
+![screenshot-portal azure com-2022 03 12-19_22_58](https://user-images.githubusercontent.com/10605985/158039615-49bb4599-efb0-46c0-8a3b-8a33557fd231.png)
+
+implemented mgmt groups and azure policy
+
+### Exercise: Implement Microsoft Sentinel
+- go to log analytics workspace > create law > create
+- go to sentinel > new > click workspace > add
+- configuration - data connectors > azure activity connector > open connector page 
